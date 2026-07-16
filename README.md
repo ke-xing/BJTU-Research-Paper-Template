@@ -1,5 +1,11 @@
 # BJTU Paper Template for Overleaf
 
+## Live Preview
+
+**[View the GitHub Pages preview →](https://ke-xing.github.io/BJTU-Research-Paper-Template/)**
+
+**[Download the compiled PDF →](https://ke-xing.github.io/BJTU-Research-Paper-Template/BJTU-Research-Paper-Template.pdf)**
+
 A GitHub-ready and Overleaf-ready LaTeX paper template for Beijing Jiaotong University (BJTU). It is designed for computer science and artificial intelligence papers, with modular sections, BJTU visual identity, BibTeX references, and a clean project layout.
 
 ## Project structure
@@ -91,13 +97,7 @@ This repository includes a GitHub Actions workflow at:
 
 On every push to `main`, GitHub will compile `main.tex`, generate a PDF, and publish a small preview website through GitHub Pages.
 
-After the first successful workflow run, the public preview page will be available here:
-
-[View the GitHub Pages preview](https://ke-xing.github.io/BJTU-Research-Paper-Template/)
-
-The page includes an embedded PDF preview and a direct download link:
-
-[Download the compiled PDF](https://ke-xing.github.io/BJTU-Research-Paper-Template/BJTU-Research-Paper-Template.pdf)
+The latest preview and PDF download links are highlighted at the top of this README.
 
 The workflow also uploads the compiled `main.pdf` as an Actions artifact for each run.
 
