@@ -1,0 +1,23 @@
+%%==============================================================================
+%% sections/00_abstract.tex  --  Abstract + TL;DR
+%%==============================================================================
+
+\begin{abstract}
+Large language models (LLMs) have demonstrated remarkable reasoning abilities
+when scaled to hundreds of billions of parameters, yet the training cost
+remains prohibitive for most academic institutions. We present
+\textbf{BJTU-LLM}, a family of 1.5B / 7B / 13B parameter models that match the
+reasoning performance of models $5\times$ their size on standard benchmarks.
+Our approach combines (i) a curriculum-based synthetic-data pipeline, (ii) a
+hardware-aware sparse attention operator, and (iii) a two-stage RLHF procedure
+with process-level rewards. On GSM8K, MATH, and HumanEval, BJTU-LLM-7B achieves
+$82.4$\%, $54.7$\%, and $71.3$\% respectively, outperforming Llama-3-8B by
+$+6.1$, $+8.3$, and $+4.2$ points. We release all model weights, training data
+recipes, and evaluation code to the community.
+\end{abstract}
+
+\begin{tldr}
+A recipe for training compact but strong reasoning LLMs at a fraction of the
+compute of frontier labs. \textbf{7B model matches 70B model on math.}
+Weights, data, and code are open-sourced.
+\end{tldr}

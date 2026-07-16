@@ -1,0 +1,37 @@
+%%==============================================================================
+%% sections/08_statements.tex
+%%   -- Broader Impact + Reproducibility + Acknowledgments (starred sections)
+%%==============================================================================
+
+\section*{\normalfont\color{bjtublue}Broader Impact \& Reproducibility}
+\addcontentsline{toc}{section}{Broader Impact \& Reproducibility}
+
+\begin{broaderimpact}
+Open-sourcing capable LLMs democratizes reasoning research but may also lower
+the barrier to misuse (e.g., automated disinformation). We mitigate this by
+(a)~releasing safety-tuned checkpoints only, (b)~publishing a detailed
+model card, and (c)~providing an evaluation of refusal behavior on
+adversarial prompts.
+\end{broaderimpact}
+
+\begin{reproducibility}
+All training data recipes, hyper-parameters, and evaluation scripts are
+released at \url{https://github.com/bjtu-ai/BJTU-LLM}. Model weights are
+available under an OpenRAIL-M license. See Appendix~\ref{app:hparams} for
+the complete list of hyper-parameters.
+\end{reproducibility}
+
+\section*{\normalfont\color{bjtublue}Acknowledgments}
+\addcontentsline{toc}{section}{Acknowledgments}
+
+This work was supported by the National Key R\&D Program of China (Grant
+No.~2024YFB1234567) and by Beijing Jiaotong University. We thank the BJTU AI
+Lab for compute resources and the anonymous reviewers for constructive
+feedback.
+
+\paragraph{Author Contributions}
+\role{Conceptualization} X.C., J.Z. \quad
+\role{Methodology} X.C., Z.L. \quad
+\role{Implementation} X.C., Z.L., Y.W. \quad
+\role{Experiments} Y.W., M.Z. \quad
+\role{Writing} X.C., J.Z.

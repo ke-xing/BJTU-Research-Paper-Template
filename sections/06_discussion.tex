@@ -1,0 +1,17 @@
+%%==============================================================================
+%% sections/06_discussion.tex
+%%==============================================================================
+\section{Discussion}
+\label{sec:discussion}
+
+\paragraph{Why does the curriculum help so much?} We hypothesize that
+gradually increasing problem difficulty prevents the model from memorizing
+shortcut heuristics; ablation in Table~\ref{tab:ablation} supports this.
+
+\begin{limitations}
+BJTU-LLM has three known limitations. \textbf{(i)}~We evaluate only on
+English benchmarks; multilingual reasoning is left for future work.
+\textbf{(ii)}~Our sparse attention degrades slightly on very short sequences
+($N<128$). \textbf{(iii)}~The process-reward model requires an additional
+2\,B tokens of preference data, which may not be available in all domains.
+\end{limitations}

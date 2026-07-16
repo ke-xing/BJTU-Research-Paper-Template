@@ -1,0 +1,92 @@
+%%==============================================================================
+%% sections/04_method.tex
+%%==============================================================================
+\section{Method}
+\label{sec:method}
+
+\subsection{Synthetic-Data Curriculum}
+\label{sec:method-data}
+We construct a training corpus $\Data = \Data_{\mathrm{easy}} \cup
+\Data_{\mathrm{med}} \cup \Data_{\mathrm{hard}}$ with increasing difficulty.
+Difficulty is estimated by an ensemble of three verifier LLMs.
+
+\subsection{Sparse-Attention Architecture}
+\label{sec:method-arch}
+
+\begin{figure}[t]
+    \centering
+    \begin{tikzpicture}
+        \tikzset{
+            stage/.style={rectangle, rounded corners=2pt, draw=bjtublue,
+                          fill=bjtublue-light, minimum height=1.0cm,
+                          minimum width=1.6cm, font=\sffamily\small},
+            attn/.style ={rectangle, rounded corners=2pt, draw=bjtured,
+                          fill=bjtured-light, minimum height=1.0cm,
+                          minimum width=1.6cm, font=\sffamily\small},
+            arrow/.style={-Latex, thick, bjtublue}
+        }
+        \node[stage] (emb) {Embed};
+        \node[attn,  right=0.35cm of emb] (a1)  {Sparse Attn};
+        \node[stage, right=0.35cm of a1]  (ff1) {FFN};
+        \node[attn,  right=0.35cm of ff1] (a2)  {Sparse Attn};
+        \node[stage, right=0.35cm of a2]  (ff2) {FFN};
+        \node[stage, right=0.35cm of ff2] (head){LM Head};
+        \foreach \a/\b in {emb/a1, a1/ff1, ff1/a2, a2/ff2, ff2/head}
+            \draw[arrow] (\a) -- (\b);
+        \node[below=0.2cm of ff1, font=\sffamily\footnotesize\color{ink-mute}]
+            {$\times\,N$ layers};
+    \end{tikzpicture}
+    \caption{The BJTU-LLM decoder-only architecture with hardware-aware sparse
+    attention (red blocks) interleaved with dense feed-forward layers.}
+    \label{fig:arch}
+\end{figure}
+
+Sparse attention over a window partition $\mathcal{W}$ is defined as
+\begin{equation}
+    \mathrm{SparseAttn}(\mat{Q},\mat{K},\mat{V})
+      = \bigoplus_{W\in\mathcal{W}}\softmax\!\left(\frac{\mat{Q}_W \mat{K}_W^\top}{\sqrt{d}}\right)\mat{V}_W.
+    \label{eq:sparse-attn}
+\end{equation}
+
+\begin{theorem}{Complexity Bound}{thm:complexity}
+Let $N$ denote sequence length and $d$ hidden dimension. The sparse-attention
+operator in Eq.~\eqref{eq:sparse-attn} runs in time
+$\mathcal{O}(N\sqrt{N}\cdot d)$, strictly less than the $\mathcal{O}(N^2 d)$
+cost of dense attention for $N > 4$.
+\end{theorem}
+
+\begin{proof}
+Each window contains $\sqrt{N}$ tokens; there are $\sqrt{N}$ windows; each
+pair-wise interaction costs $\mathcal{O}(d)$. Summing yields
+$\sqrt{N}\cdot\sqrt{N}\cdot\sqrt{N}\cdot d = N\sqrt{N}\,d$.
+\end{proof}
+
+\subsection{Two-Stage RLHF with Process Rewards}
+\label{sec:method-rlhf}
+
+Our training procedure alternates supervised fine-tuning (SFT) and RL updates
+using Proximal Policy Optimization (PPO), as summarized in
+Algorithm~\ref{alg:train}.
+
+\begin{algorithm}[t]
+\DontPrintSemicolon
+\caption{Two-Stage RLHF Training for BJTU-LLM}
+\label{alg:train}
+\KwIn{Base model $\pmodel$, SFT dataset $\Data_{\mathrm{sft}}$,
+      preference dataset $\Data_{\mathrm{pref}}$}
+\KwOut{Aligned model $\pmodel^{\star}$}
+\tcp*{Stage 1: Supervised fine-tuning}
+\For{$t = 1,\dots,T_{\mathrm{sft}}$}{
+    Sample mini-batch $(x, y) \sim \Data_{\mathrm{sft}}$\;
+    $\params \leftarrow \params - \eta \nabla_{\params} \Loss_{\mathrm{CE}}(\params)$\;
+}
+\tcp*{Stage 2: Train process reward model $r_\phi$}
+Fit $r_\phi$ on $\Data_{\mathrm{pref}}$ via ranking loss\;
+\tcp*{Stage 3: PPO with process rewards}
+\For{$t = 1,\dots,T_{\mathrm{rl}}$}{
+    Sample prompt $x$, roll out $y \sim \pmodel(\cdot|x)$\;
+    Compute step-wise rewards $\{r_\phi(x, y^{(\leq k)})\}_{k=1}^{T}$\;
+    Update $\params$ via PPO clipping objective\;
+}
+\Return $\pmodel^{\star}$\;
+\end{algorithm}

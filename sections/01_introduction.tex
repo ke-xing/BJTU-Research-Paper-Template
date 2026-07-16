@@ -1,0 +1,34 @@
+%%==============================================================================
+%% sections/01_introduction.tex
+%%==============================================================================
+\section{Introduction}
+\label{sec:intro}
+
+The remarkable progress of large language models
+\citep{brown2020gpt3,touvron2023llama,openai2023gpt4} has been driven primarily
+by scale. However, this scaling paradigm is increasingly out of reach for the
+broader research community: training a 70B-parameter model from scratch
+requires tens of millions of dollars of compute.
+
+In this work we ask: \emph{can careful data engineering and algorithmic design
+close the gap between compact and frontier LLMs on reasoning tasks?} We answer
+this question affirmatively with BJTU-LLM, and identify three ingredients that
+prove crucial:
+
+\begin{contributions}
+\begin{enumerate}
+    \item \textbf{Data.} A curriculum-based synthetic-data pipeline
+          (\S\ref{sec:method-data}) that generates 12B tokens of high-quality
+          reasoning traces spanning mathematics, code, and logic.
+    \item \textbf{Architecture.} A hardware-aware sparse-attention operator
+          (\S\ref{sec:method-arch}) that reduces long-context latency by
+          $2.3\times$ on NVIDIA H800 GPUs without accuracy loss.
+    \item \textbf{Alignment.} A two-stage RLHF procedure with process-level
+          rewards (\S\ref{sec:method-rlhf}) that yields consistent gains on
+          multi-step reasoning benchmarks.
+\end{enumerate}
+\end{contributions}
+
+Extensive experiments (\S\ref{sec:experiments}) demonstrate that BJTU-LLM-7B
+matches or exceeds Llama-3-70B on four out of six reasoning benchmarks, while
+requiring only $3.1$\% of the training FLOPs.

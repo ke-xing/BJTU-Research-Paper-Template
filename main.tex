@@ -1,0 +1,57 @@
+%%==============================================================================
+%%  main.tex  --  BJTU Modern Paper Template
+%%  -----------------------------------------------------------------------------
+%%  This is the ROOT file of the project.  It only wires together the
+%%  configuration, sections, and appendix files.  DO NOT put paper content here.
+%%
+%%  Project layout:
+%%      config/       -- metadata, extra packages, user macros
+%%      sections/     -- one file per section of the main body
+%%      appendix/     -- one file per appendix chapter
+%%      figures/      -- image assets (\includegraphics{name})
+%%      tables/       -- large tables split into their own files (optional)
+%%      references.bib
+%%
+%%  Compile:
+%%      latexmk -pdf main         (recommended)
+%%    or
+%%      pdflatex main && bibtex main && pdflatex main && pdflatex main
+%%==============================================================================
+\documentclass[english,preprint]{bjtu}
+% Class options:
+%   english / chinese      -- language  (chinese requires XeLaTeX / LuaLaTeX)
+%   onecolumn / twocolumn  -- layout
+%   preprint / final       -- footer style
+
+% ---- Project configuration --------------------------------------------------
+\input{config/packages}      % extra packages & user macros
+\input{config/metadata}      % title / authors / affiliations / keywords
+
+\begin{document}
+
+% ---- Front matter -----------------------------------------------------------
+\maketitle
+\input{sections/00_abstract}
+
+% ---- Main body --------------------------------------------------------------
+\input{sections/01_introduction}
+\input{sections/02_related_work}
+\input{sections/03_preliminaries}
+\input{sections/04_method}
+\input{sections/05_experiments}
+\input{sections/06_discussion}
+\input{sections/07_conclusion}
+
+% ---- End-of-paper statements ------------------------------------------------
+\input{sections/08_statements}
+
+% ---- Bibliography -----------------------------------------------------------
+\bibliography{references}
+
+% ---- Appendix ---------------------------------------------------------------
+\startappendix
+\input{appendix/A_hyperparameters}
+\input{appendix/B_examples}
+\input{appendix/C_proofs}
+
+\end{document}

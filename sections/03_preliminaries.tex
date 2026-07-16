@@ -1,0 +1,22 @@
+%%==============================================================================
+%% sections/03_preliminaries.tex
+%%==============================================================================
+\section{Preliminaries}
+\label{sec:prelim}
+
+We denote a language model as $\pmodel(y \mid x)$, parameterized by
+$\params$. Given a dataset $\Data = \{(x_i, y_i)\}_{i=1}^{N}$, the standard
+cross-entropy loss is
+\begin{equation}
+    \Loss_{\mathrm{CE}}(\params)
+      = -\E_{(x,y)\sim\Data}\!\left[\log \pmodel(y\mid x)\right].
+    \label{eq:ce}
+\end{equation}
+
+\begin{definition}{Process-Level Reward}{def:process-reward}
+Given a reasoning trace $y = (y^{(1)},\dots,y^{(T)})$ decomposed into $T$
+steps, a \emph{process-level reward} is a function
+$r_\phi : \mathcal{X}\times\mathcal{Y}^{\leq T}\!\rightarrow\!\R$ that assigns
+a scalar to every prefix, in contrast to an outcome reward that only scores
+the final answer $y^{(T)}$.
+\end{definition}

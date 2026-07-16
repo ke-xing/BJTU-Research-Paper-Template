@@ -1,0 +1,25 @@
+%%==============================================================================
+%% sections/02_related_work.tex
+%%==============================================================================
+\section{Related Work}
+\label{sec:related}
+
+\paragraph{Scaling laws for language models}
+Kaplan et al.~\citep{kaplan2020scaling} and Hoffmann et
+al.~\citep{hoffmann2022chinchilla} established empirical laws describing how
+model quality scales with parameters, data, and compute.
+
+\paragraph{Reasoning in LLMs}
+Chain-of-thought prompting~\citep{wei2022cot} unlocked latent reasoning in
+sufficiently large models. Subsequent work explored self-consistency, tool
+use, and search-augmented reasoning.
+
+\paragraph{Efficient attention}
+Sparse and linear attention variants have been proposed to reduce the
+quadratic cost of the standard Transformer~\citep{vaswani2017attention},
+including FlashAttention~\citep{dao2022flashattention}.
+
+\paragraph{RLHF and process rewards}
+Reinforcement learning from human feedback has become the dominant paradigm
+for aligning LLMs. Recent work argues that dense, process-level rewards
+outperform sparse outcome rewards on multi-step tasks.

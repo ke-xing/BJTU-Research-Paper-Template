@@ -1,0 +1,25 @@
+%%==============================================================================
+%% appendix/A_hyperparameters.tex
+%%==============================================================================
+\section{Additional Experimental Details}
+\label{app:hparams}
+\lipsum[1]
+
+\begin{table}[h]
+    \centering
+    \small\sffamily
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Hyper-parameter} & \textbf{Value} \\
+        \midrule
+        Batch size (tokens)      & \num{4194304} \\
+        Learning rate            & \num{3e-4} \\
+        Warmup steps             & \num{2000} \\
+        Weight decay             & \num{0.1} \\
+        Adam $\beta_1, \beta_2$  & $0.9,\,0.95$ \\
+        Sequence length          & \num{8192} \\
+        \bottomrule
+    \end{tabular}
+    \caption{Pre-training hyper-parameters for BJTU-LLM-7B.}
+    \label{tab:hparams}
+\end{table}

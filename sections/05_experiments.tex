@@ -1,0 +1,84 @@
+%%==============================================================================
+%% sections/05_experiments.tex
+%%==============================================================================
+\section{Experiments}
+\label{sec:experiments}
+
+\subsection{Setup}
+\paragraph{Training compute} All models are trained on 64$\times$NVIDIA H800
+GPUs. The 7B model consumes \SI{3.2e22}{FLOPs}, roughly $3.1\%$ of the
+Llama-3-70B budget.
+
+\paragraph{Benchmarks} We evaluate on six standard reasoning benchmarks:
+GSM8K, MATH, HumanEval, MBPP, ARC-Challenge, and BBH.
+
+\subsection{Main Results}
+\begin{table}[t]
+    \centering
+    \small\sffamily
+    \begin{tabularx}{\linewidth}{lXcccc}
+        \toprule
+        \textbf{Model} & \textbf{Params} & \textbf{GSM8K} & \textbf{MATH} & \textbf{HumanEval} & \textbf{Avg.} \\
+        \midrule
+        Llama-3-8B         & 8\,B  & 76.3 & 46.4 & 67.1 & 63.3 \\
+        Mistral-7B         & 7\,B  & 68.5 & 41.2 & 62.8 & 57.5 \\
+        Qwen-2-7B          & 7\,B  & 79.2 & 50.1 & 68.7 & 66.0 \\
+        \midrule
+        \textbf{BJTU-LLM-7B (ours)} & \textbf{7\,B} & \best{82.4}\,\up{6.1} & \best{54.7}\,\up{8.3} & \best{71.3}\,\up{4.2} & \best{69.5} \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Main results on reasoning benchmarks (pass@1, greedy decoding).
+    Gains vs.\ Llama-3-8B shown in blue. Best per column in \textbf{bold}.}
+    \label{tab:main}
+\end{table}
+
+\begin{keypoint}
+\textbf{Key finding.} BJTU-LLM-7B is the strongest 7B model across all three
+reasoning benchmarks, and closes 78\% of the gap to Llama-3-70B.
+\end{keypoint}
+
+\subsection{Ablation Study}
+\begin{table}[t]
+    \centering
+    \small\sffamily
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Configuration} & \textbf{GSM8K} & \textbf{$\Delta$} \\
+        \midrule
+        Full BJTU-LLM-7B                       & 82.4 & --- \\
+        \quad w/o synthetic-data curriculum     & 74.1 & \dn{8.3} \\
+        \quad w/o sparse attention              & 81.8 & \dn{0.6} \\
+        \quad w/o process rewards (outcome only) & 78.6 & \dn{3.8} \\
+        \bottomrule
+    \end{tabular}
+    \caption{Ablation on GSM8K. Each component is removed independently.}
+    \label{tab:ablation}
+\end{table}
+
+\subsection{Qualitative Analysis}
+Figure~\ref{fig:qual} shows a representative example of BJTU-LLM-7B solving a
+multi-step math problem via chain-of-thought reasoning.
+
+\begin{prompt}[Prompt]
+A train leaves Beijing at 8:00 traveling south at 250\,km/h. Another train
+leaves Shanghai at 9:00 traveling north at 300\,km/h. If the two cities are
+1318\,km apart, at what time do the trains meet?
+\end{prompt}
+
+\begin{response}[BJTU-LLM-7B]
+Step 1: At 9:00, the first train has traveled $250 \times 1 = 250$ km.\\
+Step 2: Remaining distance: $1318 - 250 = 1068$ km.\\
+Step 3: Closing speed: $250 + 300 = 550$ km/h.\\
+Step 4: Time to close: $1068 / 550 \approx 1.94$ h $=$ 1 h 56 min.\\
+Answer: The trains meet at approximately \textbf{10:56}.
+\end{response}
+
+\begin{figure}[t]
+    \centering
+    \fbox{\parbox{0.9\linewidth}{\centering\footnotesize
+    (Placeholder: attention heatmap / accuracy-vs-compute curve.
+     Drop your PDF/PNG into \texttt{figures/} and use
+     \texttt{\textbackslash includegraphics\{filename\}}.)}}
+    \caption{Qualitative visualization of reasoning behavior.}
+    \label{fig:qual}
+\end{figure}
