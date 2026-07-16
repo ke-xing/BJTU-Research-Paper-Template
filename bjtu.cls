@@ -243,11 +243,18 @@
     \thispagestyle{empty}
     \noindent
     \begin{tikzpicture}[remember picture, overlay]
-        % Official BJTU-blue hero wash
+        % Balanced official BJTU-blue brand panel
         \fill[bjtublue-mist]
             ([yshift=-0.65cm]current page.north west)
             rectangle
-            ([yshift=-5.0cm]current page.north east);
+            ([yshift=-3.18cm]current page.north east);
+        \fill[bjtublue!4!white]
+            ([xshift=9.4cm,yshift=-0.65cm]current page.north west)
+            rectangle
+            ([yshift=-3.18cm]current page.north east);
+        \draw[rule-gray, line width=0.35pt]
+            ([yshift=-3.18cm]current page.north west) --
+            ([yshift=-3.18cm]current page.north east);
         % Official BJTU-blue brand rail
         \fill[bjtublue]
             ([yshift=-0.68cm]current page.north west)
@@ -272,7 +279,7 @@
              {\ifbjtu@preprint Beijing Jiaotong University Technical Report\else \bjtu@venue\fi};
     \end{tikzpicture}
 
-    \vspace*{2.28cm}
+    \vspace*{1.08cm}
 
     % ---- Main title block ----
     {\RaggedRight
@@ -318,7 +325,12 @@
         before skip=0.7em, after skip=1.2em,
         drop fuzzy shadow={black!8!white}
     ]
-    {\sffamily\bfseries\color{bjtublue-dark}\large Abstract}\par
+    \tikz[baseline=(abstract-title.base)]\node[
+        fill=bjtublue, text=white,
+        font=\sffamily\bfseries\large,
+        rounded corners=3pt,
+        inner xsep=7pt, inner ysep=2.2pt
+    ] (abstract-title) {Abstract};\par
     \vspace{0.45em}
     \small\color{ink}%
 }{%
@@ -394,29 +406,33 @@
 %------------------------------------------------------------------------------
 \newtcbtheorem[number within=section]{bjtutheorem}{Theorem}{%
     enhanced, colback=white, colframe=bjtublue,
-    fonttitle=\sffamily\bfseries\color{white},
+    fonttitle=\sffamily\bfseries,
     coltitle=white,
     attach boxed title to top left={xshift=6pt, yshift=-\tcboxedtitleheight/2},
-    boxed title style={colback=bjtublue, boxrule=0pt, arc=1pt},
+    boxed title style={colback=bjtublue, boxrule=0pt, arc=2pt,
+        left=5pt, right=5pt, top=1.5pt, bottom=1.5pt},
     boxrule=0.6pt, arc=2pt,
     left=10pt, right=10pt, top=10pt, bottom=10pt
 }{thm}
 
 \newtcbtheorem[use counter from=bjtutheorem]{bjtulemma}{Lemma}{%
     enhanced, colback=white, colframe=bjtublue-mid,
-    fonttitle=\sffamily\bfseries\color{white},
+    fonttitle=\sffamily\bfseries,
+    coltitle=white,
     attach boxed title to top left={xshift=6pt, yshift=-\tcboxedtitleheight/2},
-    boxed title style={colback=bjtublue-mid, boxrule=0pt, arc=1pt},
+    boxed title style={colback=bjtublue-mid, boxrule=0pt, arc=2pt,
+        left=5pt, right=5pt, top=1.5pt, bottom=1.5pt},
     boxrule=0.5pt, arc=2pt,
     left=10pt, right=10pt, top=10pt, bottom=10pt
 }{lem}
 
 \newtcbtheorem[use counter from=bjtutheorem]{bjtudefinition}{Definition}{%
     enhanced, colback=bjtublue-light, colframe=bjtublue-light,
-    fonttitle=\sffamily\bfseries\color{bjtublue},
-    coltitle=bjtublue,
+    fonttitle=\sffamily\bfseries,
+    coltitle=white,
     attach boxed title to top left={xshift=6pt, yshift=-\tcboxedtitleheight/2},
-    boxed title style={colback=bjtublue-light, boxrule=0pt},
+    boxed title style={colback=bjtublue, boxrule=0pt, arc=2pt,
+        left=5pt, right=5pt, top=1.5pt, bottom=1.5pt},
     boxrule=0pt, arc=2pt,
     borderline west={3pt}{0pt}{bjtublue},
     left=10pt, right=10pt, top=10pt, bottom=10pt
@@ -432,6 +448,11 @@
     enhanced, colback=bjtured-light, colframe=rule-gray,
     boxrule=0.3pt, arc=5pt,
     borderline west={3.2pt}{0pt}{bjtured},
+    coltitle=white,
+    fonttitle=\sffamily\bfseries\footnotesize,
+    attach boxed title to top left={xshift=8pt, yshift=-\tcboxedtitleheight/2},
+    boxed title style={colback=bjtured, boxrule=0pt, arc=3pt,
+        left=5pt, right=5pt, top=1.5pt, bottom=1.5pt},
     left=12pt, right=12pt, top=9pt, bottom=9pt,
     fontupper=\small, drop fuzzy shadow={black!6!white}, #1
 }
@@ -439,6 +460,11 @@
     enhanced, colback=white, colframe=rule-gray,
     boxrule=0.35pt, arc=5pt,
     borderline west={3.2pt}{0pt}{bjtugold},
+    coltitle=white,
+    fonttitle=\sffamily\bfseries\footnotesize,
+    attach boxed title to top left={xshift=8pt, yshift=-\tcboxedtitleheight/2},
+    boxed title style={colback=bjtugold!70!black, boxrule=0pt, arc=3pt,
+        left=5pt, right=5pt, top=1.5pt, bottom=1.5pt},
     left=12pt, right=12pt, top=9pt, bottom=9pt,
     fontupper=\small, drop fuzzy shadow={black!5!white}, #1
 }
@@ -599,10 +625,11 @@
     colback=bjtured-light, colframe=rule-gray,
     boxrule=0.3pt, arc=5pt,
     borderline west={3.2pt}{0pt}{bjtured},
-    title={\sffamily\bfseries\color{bjtured} Limitations},
-    coltitle=bjtured,
+    title={\sffamily\bfseries Limitations},
+    coltitle=white,
     attach boxed title to top left={xshift=10pt, yshift=-\tcboxedtitleheight/2},
-    boxed title style={colback=bjtured-light, boxrule=0pt, arc=3pt},
+    boxed title style={colback=bjtured, boxrule=0pt, arc=3pt,
+        left=6pt, right=6pt, top=2pt, bottom=2pt},
     left=12pt, right=12pt, top=11pt, bottom=10pt,
     fontupper=\small,
     drop fuzzy shadow={black!5!white}
@@ -613,10 +640,11 @@
     colback=white, colframe=rule-gray,
     boxrule=0.3pt, arc=5pt,
     borderline west={3.2pt}{0pt}{bjtugold},
-    title={\sffamily\bfseries\color{bjtublue-dark} Broader Impact},
-    coltitle=bjtublue-dark,
+    title={\sffamily\bfseries Broader Impact},
+    coltitle=white,
     attach boxed title to top left={xshift=10pt, yshift=-\tcboxedtitleheight/2},
-    boxed title style={colback=bg-soft, boxrule=0pt, arc=3pt},
+    boxed title style={colback=bjtublue-dark, boxrule=0pt, arc=3pt,
+        left=6pt, right=6pt, top=2pt, bottom=2pt},
     left=12pt, right=12pt, top=11pt, bottom=10pt,
     fontupper=\small,
     drop fuzzy shadow={black!5!white}
@@ -627,10 +655,11 @@
     colback=bjtublue-mist, colframe=rule-gray,
     boxrule=0.3pt, arc=5pt,
     borderline west={3.2pt}{0pt}{bjtublue-mid},
-    title={\sffamily\bfseries\color{bjtublue} Reproducibility Statement},
-    coltitle=bjtublue,
+    title={\sffamily\bfseries Reproducibility Statement},
+    coltitle=white,
     attach boxed title to top left={xshift=10pt, yshift=-\tcboxedtitleheight/2},
-    boxed title style={colback=bjtublue-mist, boxrule=0pt, arc=3pt},
+    boxed title style={colback=bjtublue-mid, boxrule=0pt, arc=3pt,
+        left=6pt, right=6pt, top=2pt, bottom=2pt},
     left=12pt, right=12pt, top=11pt, bottom=10pt,
     fontupper=\small,
     drop fuzzy shadow={black!5!white}
@@ -656,11 +685,12 @@
     colback=bjtublue-mist, colframe=rule-gray,
     boxrule=0.35pt, arc=5pt,
     borderline west={3.2pt}{0pt}{bjtublue},
-    title={\sffamily\bfseries\color{bjtublue-dark} #1},
-    coltitle=bjtublue-dark,
+    title={\sffamily\bfseries #1},
+    coltitle=white,
     fonttitle=\sffamily\bfseries\footnotesize,
     attach boxed title to top left={xshift=8pt, yshift=-\tcboxedtitleheight/2},
-    boxed title style={colback=bjtublue-mist, boxrule=0pt, arc=3pt},
+    boxed title style={colback=bjtublue, boxrule=0pt, arc=3pt,
+        left=5pt, right=5pt, top=1.5pt, bottom=1.5pt},
     left=12pt, right=12pt, top=9pt, bottom=9pt,
     fontupper=\ttfamily\footnotesize,
     drop fuzzy shadow={black!5!white},
