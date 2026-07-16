@@ -81,7 +81,7 @@ Put image files under `figures/`, then include them in LaTeX with:
 
 You do not need to write the `figures/` prefix because the class already configures the graphics path.
 
-## Build on GitHub
+## Build and publish on GitHub
 
 This repository includes a GitHub Actions workflow at:
 
@@ -89,14 +89,36 @@ This repository includes a GitHub Actions workflow at:
 .github/workflows/build-latex.yml
 ```
 
-On every push to `main` or `master`, and on every pull request, GitHub will compile `main.tex` and upload the generated `main.pdf` as a workflow artifact.
+On every push to `main`, GitHub will compile `main.tex`, generate a PDF, and publish a small preview website through GitHub Pages.
 
-To download the compiled PDF:
+After the first successful workflow run, the public preview page will be available at:
+
+```text
+https://ke-xing.github.io/BJTU-Research-Paper-Template/
+```
+
+The page includes an embedded PDF preview and a direct download link:
+
+```text
+https://ke-xing.github.io/BJTU-Research-Paper-Template/BJTU-Research-Paper-Template.pdf
+```
+
+The workflow also uploads the compiled `main.pdf` as an Actions artifact for each run.
+
+To download the artifact manually:
 
 1. Open your GitHub repository.
 2. Go to **Actions**.
 3. Open the latest successful workflow run.
 4. Download the artifact named `bjtu-paper-template-pdf`.
+
+### Enable GitHub Pages
+
+In your GitHub repository, open **Settings** → **Pages**, then set:
+
+- **Source**: `GitHub Actions`
+
+This only needs to be configured once.
 
 ## Push to GitHub
 
