@@ -91,17 +91,13 @@ This repository includes a GitHub Actions workflow at:
 
 On every push to `main`, GitHub will compile `main.tex`, generate a PDF, and publish a small preview website through GitHub Pages.
 
-After the first successful workflow run, the public preview page will be available at:
+After the first successful workflow run, the public preview page will be available here:
 
-```text
-https://ke-xing.github.io/BJTU-Research-Paper-Template/
-```
+[View the GitHub Pages preview](https://ke-xing.github.io/BJTU-Research-Paper-Template/)
 
 The page includes an embedded PDF preview and a direct download link:
 
-```text
-https://ke-xing.github.io/BJTU-Research-Paper-Template/BJTU-Research-Paper-Template.pdf
-```
+[Download the compiled PDF](https://ke-xing.github.io/BJTU-Research-Paper-Template/BJTU-Research-Paper-Template.pdf)
 
 The workflow also uploads the compiled `main.pdf` as an Actions artifact for each run.
 
